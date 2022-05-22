@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html id="htm" lang="en" style="height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body style="height: 100%; text-align: center;">
+<div style="cursor: pointer; ;width: 120px;border: 1px solid rgb(216, 216, 216);border-radius: 2px;" onclick="send()">发送邮件</div>
+<div id="content" style="height: 100%;">
+  <div style="display: flex; flex-direction: column;height: 100%;">
+    <div style="font-size: 24px; font-weight: 500;">标题</div>
+    <div id="subTitle"></div>
+    <div style="flex: 1 0 auto; background-color: rgb(200, 247, 231);">
+      内容
+    </div>
+  </div>
+</div>
+</body>
+
+<script>
+    function send() {
+        // const body = document.getElementById('htm').outerHTML
+        const body = document.documentElement.outerHTML
+        // request(btoa(encodeURI(body)))
+        request(body)
+    }
+    function request(domStr) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = (res) => {
+            console.log('响应', res.currentTarget.response)
+        }
+        xhr.open('POST', 'http://localhost:8080/email/send', true)
+        const from = new FormData()
+        from.append('html', domStr)
+        xhr.send(from);
+    }
+</script>
+</html>
