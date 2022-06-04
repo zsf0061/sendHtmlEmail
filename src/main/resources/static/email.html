@@ -7,11 +7,50 @@
 <body style="height: 100%; text-align: center;">
 <div style="cursor: pointer; ;width: 120px;border: 1px solid rgb(216, 216, 216);border-radius: 2px;" onclick="send()">发送邮件</div>
 <div id="content" style="height: 100%;">
-  <div style="display: flex; flex-direction: column;height: 100%;">
-    <div style="font-size: 24px; font-weight: 500;">标题</div>
-    <div id="subTitle"></div>
-    <div style="flex: 1 0 auto; background-color: rgb(200, 247, 231);">
-      内容
+  <div style="height: 100px;">
+    <div style="font-size: 24px; font-weight: 500;text-align: center;">标题</div>
+    <div id="subTitle" style="font-size:16px; text-align: center;"></div>
+    <div style="font-size: 22px; font-weight: 600;text-align: center;>
+      <a href="#tab1" style="cursor: pointer;height: 30px; width: 100px;text-align: center;line-height: 30px;">tab1</a>
+      <a href="#tab2" style="cursor: pointer;height: 30px; width: 100px;text-align: center;line-height: 30px;">tab2</a>
+      <a href="#tab3" style="cursor: pointer;height: 30px; width: 100px;text-align: center;line-height: 30px;">tab3</a>
+    </div>
+  </div>
+  <div style="height: 500px;">
+    <div id="tab1" style=" background-color: rgb(200, 247, 231);height: 600px;">
+      <table border="1" style="border-spacing: 0;border-collapse: collapse">
+        <thead>
+        <tr>
+          <td rowspan="2" style="width: 80px">111</td>
+          <td rowspan="2" style="width: 80px">222</td>
+          <td colspan="2" style="width: 80px">333</td>
+        </tr>
+        <tr>
+          <td style="width: 80px">3-1</td>
+          <td style="width: 80px">3-2</td>
+        </tr>
+        </thead>
+        <tbody style="text-align:center;">
+        <tr>
+          <td style="text-align:center;width: 80px">111</td>
+          <td style="width: 80px">111</td>
+          <td style="width: 80px">111</td>
+          <td style="width: 80px">111</td>
+        </tr>
+        <tr>
+          <td style="width: 80px">111</td>
+          <td style="width: 80px">111</td>
+          <td style="width: 80px">111</td>
+          <td style="width: 80px">111</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="tab2" style="height: 400px;background-color: aqua">
+      tab2
+    </div>
+    <div id="tab3" style="height: 300px;background-color: cadetblue">
+      tab3
     </div>
   </div>
 </div>
@@ -19,8 +58,8 @@
 
 <script>
     function send() {
-        // const body = document.getElementById('htm').outerHTML
-        const body = document.documentElement.outerHTML
+        const body = document.getElementById('content').outerHTML
+        // const body = document.documentElement.outerHTML
         // request(btoa(encodeURI(body)))
         request(body)
     }
@@ -28,6 +67,7 @@
         const xhr = new XMLHttpRequest();
         xhr.onload = (res) => {
             console.log('响应', res.currentTarget.response)
+            alert("发送成功")
         }
         xhr.open('POST', 'http://localhost:8080/email/send', true)
         const from = new FormData()
